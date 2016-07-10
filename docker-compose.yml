@@ -6,12 +6,12 @@ nginx:
     - php
   volumes_from:
     - app
-php:
+php7:
   build: ./php/
   expose:
     - 9000
   links:
-    - mysql
+    - mariadb
   volumes_from:
     - app
 app:
@@ -20,8 +20,8 @@ app:
     - ./src:/var/www/html
   command: "true"
 
-mysql:
-  image: mysql:latest
+mariadb:
+  image: mymariadb:latest
   volumes_from:
     - data
   environment:
@@ -31,7 +31,7 @@ mysql:
     MYSQL_PASSWORD: project
 
 data:
-  image: mysql:latest
+  image: mariadb:latest
   volumes:
     - /var/lib/mysql
   command: "true"
